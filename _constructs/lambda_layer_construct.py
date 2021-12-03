@@ -1,10 +1,11 @@
-from aws_cdk import core as cdk
+from aws_cdk import BundlingOptions
+from constructs import Construct
 from aws_cdk import aws_lambda
 
 
-class LambdaLayerConstruct(cdk.Construct):
+class LambdaLayerConstruct(Construct):
     def __init__(self,
-                 scope: cdk.Construct,
+                 scope: Construct,
                  id: str,
                  layer_version_name: str,
                  ) -> None:
@@ -27,8 +28,9 @@ class LambdaLayerConstruct(cdk.Construct):
             """
         ]
 
-        bundling = cdk.BundlingOptions(
-            image=aws_lambda.Runtime.PYTHON_3_8.bundling_docker_image,
+        bundling = BundlingOptions(
+            # image=aws_lambda.Runtime.PYTHON_3_8.bundling_docker_image,
+            image=aws_lambda.Runtime.PYTHON_3_8.bundling_image,
             command=commands
         )
 

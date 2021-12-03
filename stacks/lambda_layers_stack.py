@@ -1,11 +1,12 @@
-from aws_cdk import core as cdk
+from aws_cdk import Stack
+from constructs import Construct
 from _constructs.lambda_layer_construct import LambdaLayerConstruct
 from _constructs.lambda_function_construct import LambdaFunctionConstruct
 
 
-class CdkLambdaLayersStack(cdk.Stack):
+class CdkLambdaLayersStack(Stack):
 
-    def __init__(self, scope: cdk.Construct, construct_id: str, **kwargs) -> None:
+    def __init__(self, scope: Construct, construct_id: str, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
         # lambda layer
@@ -30,4 +31,3 @@ class CdkLambdaLayersStack(cdk.Stack):
             function_path='src/lambda/base',
             lambda_layers=[base_layer]
         )
-

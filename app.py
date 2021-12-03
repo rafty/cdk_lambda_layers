@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
-from aws_cdk import core as cdk
+# from aws_cdk import core as cdk
+import aws_cdk as cdk
 from stacks.lambda_layers_stack import CdkLambdaLayersStack
 
 environment = cdk.Environment(

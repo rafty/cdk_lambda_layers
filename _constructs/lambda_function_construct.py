@@ -1,11 +1,12 @@
-from aws_cdk import core as cdk
+from aws_cdk import CfnOutput
+from constructs import Construct
 from aws_cdk import aws_lambda
-from aws_cdk.core import Tags
+from aws_cdk import Tags
 
 
-class LambdaFunctionConstruct(cdk.Construct):
+class LambdaFunctionConstruct(Construct):
 
-    def __init__(self, scope: cdk.Construct, id: str, function_name: str) -> None:
+    def __init__(self, scope: Construct, id: str, function_name: str) -> None:
         super().__init__(scope, id)
         self._function_name = function_name
         self._construct_id = id
@@ -25,7 +26,8 @@ class LambdaFunctionConstruct(cdk.Construct):
             description=description,
             handler=handler,
             runtime=aws_lambda.Runtime.PYTHON_3_8,
-            code=aws_lambda.Code.asset(function_path),
+            # code=aws_lambda.Code.asset(function_path),
+            code=aws_lambda.Code.from_asset(function_path),
             layers=lambda_layers
         )
 
@@ -33,13 +35,13 @@ class LambdaFunctionConstruct(cdk.Construct):
 
         Tags.of(_function).add('FunctionName', self._function_name)
 
-        cdk.CfnOutput(
+        CfnOutput(
             scope=self,
             id='lambda_function_name',
             value=_function.function_name
         )
 
-        cdk.CfnOutput(
+        CfnOutput(
             scope=self,
             id='lambda_function_arn',
             value=_function.function_arn
